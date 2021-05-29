@@ -1,0 +1,14 @@
+.App {
+	width: 500px;
+	margin: 100px auto;
+}
+.btn {
+	cursor: pointer;
+	transition: 1s;
+}
+.ul {
+	transition: 1s;
+}
+li {
+	transition: 1s;
+}
