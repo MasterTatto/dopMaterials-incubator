@@ -6,14 +6,19 @@ import ControledState from './components/ControledState';
 import { Rating, RatingValueType } from './components/Rating/Rating';
 import State from './components/State';
 import { UncontroledRating } from './components/UncontroledRating/Rating';
+import Select from './Select';
 import { ControledInput, ControledCheckBox } from './UncontroledInput';
 // import UncontroledInputWithRef from './UncontroledInput';
-
+export type itemsType = {
+	title: string;
+	value: string;
+};
 function App() {
 	let [ratingValue, setRatingValue] = useState<RatingValueType>(0);
 	let [acord, setAcord] = useState(true);
 	let [change, setOn] = useState(false);
-	let items = [
+
+	let items: Array<itemsType> = [
 		{ title: 'Alex', value: v1() },
 		{ title: 'Bob', value: v1() },
 		{ title: 'Anna', value: v1() },
@@ -44,6 +49,7 @@ function App() {
 			<Rating value={5} /> */}
 			<ControledInput />
 			<ControledCheckBox />
+			<Select items={items} />
 		</div>
 	);
 }
