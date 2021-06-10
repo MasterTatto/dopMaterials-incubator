@@ -1,66 +1,69 @@
-type itemType = {
-	title: string;
-	value: any;
-};
+import React from "react";
 
-type AccordionPropsType = {
-	titleValue: string;
-	collapsed: boolean;
-	setAcord: (value: boolean) => void;
-	items: Array<itemType>;
-	onClick: (v: any, t: string) => void;
-};
-
-export function Accordion(props: AccordionPropsType) {
-	return (
-		<div>
-			<AccordionTitle
-				title={props.titleValue}
-				setAcord={() => props.setAcord(!props.collapsed)}
-			/>
-			{!props.collapsed ? (
-				<AccordionBody
-					items={props.items}
-					onClick={props.onClick}
-					titleValue={props.titleValue}
-				/>
-			) : (
-				''
-			)}
-		</div>
-	);
+export type AccordionPropsType = {
+    titleValue: string
+    collapsed: boolean
+    /**
+     * Callback that are called when component is clicked + (to show tip in WebStorm CTRL+Q)
+     */
+    onClickCB: () => void
+    items: ItemsType[]
+    onItemClick: (value: string | number) => void
 }
+
+export type ItemsType = {
+    title: string
+    value: string | number
+}
+
+
+function Accordion(props: AccordionPropsType) {
+    console.log("Accordion rendering")
+    return (
+        <div>
+            <AccordionTitle
+                title={props.titleValue}
+                onClick={props.onClickCB}
+            />
+            {!props.collapsed &&
+            <AccordionBody
+                items={props.items}
+                onItemClick={props.onItemClick}
+            />}
+        </div>
+    )
+}
+
 
 type AccordionTitlePropsType = {
-	title: string;
-	setAcord: () => void;
-};
+    title: string
+    /**
+     * Callback that are called when component is clicked + (to show tip in WebStorm CTRL+Q)
+     */
+    onClick: () => void
+}
+
 
 function AccordionTitle(props: AccordionTitlePropsType) {
-	return (
-		<div>
-			<h3 className='btn' onClick={() => props.setAcord()}>
-				---{props.title}---
-			</h3>
-		</div>
-	);
+    console.log("AccordionTitle rendering")
+    return <h3 onClick={(e) => props.onClick()}>---{props.title}---</h3>
 }
-type AccordionBodyPropsType = {
-	titleValue: string;
-	items: Array<itemType>;
-	onClick: (v: any, t: string) => void;
-};
-function AccordionBody(props: AccordionBodyPropsType) {
-	return (
-		<ul className='ul'>
-			{props.items.map((item, index) => (
-				<li
-					key={item.value}
-					onClick={() => props.onClick(item.title, props.titleValue)}
-				>
-					{item.title}
-				</li>
-			))}
-		</ul>
-	);
+
+type AccordionBodyType = {
+    items: ItemsType[]
+    onItemClick: (value: string | number) => void
 }
+
+
+function AccordionBody(props: AccordionBodyType) {
+    return (
+        <ul>
+            {props.items.map((it) => <li
+                key={it.value}
+                onClick={() => props.onItemClick(it.value)}
+            >{it.title}</li>)}
+        </ul>
+    )
+}
+
+export default Accordion

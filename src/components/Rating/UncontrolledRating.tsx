@@ -1,26 +1,21 @@
-import React from "react";
-
-export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5
+import React, {Dispatch, SetStateAction, useState} from "react";
 
 
-type RatingPropsType = {
-    value: RatingValueType
-    setRatingValue: (value: RatingValueType) => void
-}
+function UncontrolledRating() {
+    let [values, setValues] = useState(0)
 
-export function Rating(props: RatingPropsType) {
     console.log("Rating rendering")
 
     return (
       <div>
-          <Star selected={props.value > 0} value={1} setRatingValue={props.setRatingValue}/>
-          <Star selected={props.value > 1} value={2} setRatingValue={props.setRatingValue}/>
-          <Star selected={props.value > 2} value={3} setRatingValue={props.setRatingValue}/>
-          <Star selected={props.value > 3} value={4} setRatingValue={props.setRatingValue}/>
-          <Star selected={props.value > 4} value={5} setRatingValue={props.setRatingValue}/>
+          <Star selected={values > 0} setValue={() => setValues(1)}/>
+          <Star selected={values > 1} setValue={() => setValues(2)}/>
+          <Star selected={values > 2} setValue={() => setValues(3)}/>
+          <Star selected={values > 3} setValue={() => setValues(4)}/>
+          <Star selected={values > 4} setValue={() => setValues(5)}/>
       </div>
     );
-    /*if (props.value === 1) {
+    /*if (props.values === 1) {
         return (
           <div>
               <Star selected={true}/>
@@ -31,7 +26,7 @@ export function Rating(props: RatingPropsType) {
           </div>
         );
     }
-    if (props.value === 2) {
+    if (props.values === 2) {
         return (
             <div>
                 <Star selected={true}/>
@@ -43,7 +38,7 @@ export function Rating(props: RatingPropsType) {
         );
 
     }
-    if (props.value === 3) {
+    if (props.values === 3) {
         return (
             <div>
                 <Star selected={true}/>
@@ -55,7 +50,7 @@ export function Rating(props: RatingPropsType) {
         );
 
     }
-    if (props.value === 4) {
+    if (props.values === 4) {
         return (
             <div>
                 <Star selected={true}/>
@@ -66,7 +61,7 @@ export function Rating(props: RatingPropsType) {
             </div>
         );
     }
-    if (props.value === 5) {
+    if (props.values === 5) {
         return (
             <div>
                 <Star selected={true}/>
@@ -91,18 +86,16 @@ export function Rating(props: RatingPropsType) {
 
 type StarRatingType = {
     selected: boolean
-    value: RatingValueType
-    setRatingValue: (value: RatingValueType) => void
+    setValue: () => void
 }
 
 function Star(props: StarRatingType) {
     console.log("Star rendering")
     return (
-      <span onClick={()=> props.setRatingValue(props.value)}>
-        {(props.selected)
-          ? <b>star </b>
-          : 'star '}
+      <span style={{margin: '10px'}} onClick={() => props.setValue}>
+          {(props.selected) ? <b>star</b> : 'star'}
       </span>
     )
 }
 
+export default UncontrolledRating
